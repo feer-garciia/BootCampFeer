@@ -1,0 +1,15 @@
+/home/fernando/BootcampFeer/CalculadoraSegura/bin/Debug/net10.0/CalculadoraSegura
+/home/fernando/BootcampFeer/CalculadoraSegura/bin/Debug/net10.0/CalculadoraSegura.deps.json
+/home/fernando/BootcampFeer/CalculadoraSegura/bin/Debug/net10.0/CalculadoraSegura.runtimeconfig.json
+/home/fernando/BootcampFeer/CalculadoraSegura/bin/Debug/net10.0/CalculadoraSegura.dll
+/home/fernando/BootcampFeer/CalculadoraSegura/bin/Debug/net10.0/CalculadoraSegura.pdb
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.GeneratedMSBuildEditorConfig.editorconfig
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.AssemblyInfoInputs.cache
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.AssemblyInfo.cs
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.csproj.CoreCompileInputs.cache
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.sourcelink.json
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.dll
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/refint/CalculadoraSegura.dll
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.pdb
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/CalculadoraSegura.genruntimeconfig.cache
+/home/fernando/BootcampFeer/CalculadoraSegura/obj/Debug/net10.0/ref/CalculadoraSegura.dll

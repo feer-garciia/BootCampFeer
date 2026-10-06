@@ -1,9 +1,65 @@
 ﻿using System;
+using System.Net;
 
 class Program
 {
+
+    static double ObtenerNumero(string mensaje)
+        {
+            double numero = 0;
+            Console.Write(mensaje);
+            string? input = Console.ReadLine();
+            if (!double.TryParse(input, out numero))
+            {
+                Console.WriteLine("Valor incorrecto! Usare 0 en su lugar");
+            }
+            return numero;
+        }
+
+    static double Suma(double numero1, double numero2)
+    {
+        double resultado = 0;
+        resultado = numero1 + numero2;
+        Console.WriteLine($"Tu suma es {numero1} + {numero2} = {resultado}");
+        return resultado;
+    }
+
+    static double Resta(double numero1, double numero2)
+    {
+        double resultado = 0;
+        resultado = numero1 - numero2;
+        Console.WriteLine ($"Tu resta es {numero1} - {numero2} = {resultado}");
+        return resultado;
+    }
+
+    static double Multiplicacion(double numero1, double numero2)
+    {
+        double resultado = 0;
+        resultado = numero1 * numero2;
+        Console.WriteLine($"Tu multiplicacion es {numero1} + {numero2} = {resultado}");
+        return resultado;
+    }
+    
+    static double Division(double numero1, double numero2)
+    {
+        double resultado = 0;
+        resultado = numero1 / numero2;
+        if (numero2 == 0)
+        {
+            Console.WriteLine("No se puede divir entre 0");
+        }
+        else
+        {
+            Console.WriteLine($"Tu division es {numero1} / {numero2} = {resultado}");
+        }
+        return resultado;
+        
+    }
+
     static void Main(string[] args)
     {
+        
+
         Console.WriteLine("===Calculadora Segura v3.0===");
 
         string? opcion = "";
@@ -33,61 +89,24 @@ class Program
                 continue;
             }
 
+            double numero1 = ObtenerNumero("Ingresa el primer número: ");
+            double numero2 = ObtenerNumero("Ingresa el segundo numero: ");
 
-
-            double numero1 = 0;
-            double numero2 = 0;
-
-            Console.WriteLine("Ingrese el primer numero:");
-            string? input1 = Console.ReadLine();
-
-            if (double.TryParse(input1, out numero1))
-            {
-                
-            }
-            else
-            {
-                Console.WriteLine("Error en el numero 1! Usaremos 0 por defecto");
-            }
-
-            Console.WriteLine("Ingrese el segundo numero: ");
-            string? input2 = Console.ReadLine();
-
-            if (double.TryParse(input2, out numero2))
-            {
-                
-            }
-            else
-            {
-                Console.WriteLine("Error en el numero 2! Usaremos 0 por defecto");
-            }
-
-            double resultado = 0;
+            //double resultado = 0;
 
             switch (opcion)
             {
                 case "1":
-                    resultado = numero1 + numero2;
-                    Console.WriteLine($"Resultado: {numero1} + {numero2} = {resultado}");
+                    Suma(numero1, numero2);
                     break;
                 case "2":
-                    resultado = numero1 - numero2;
-                    Console.WriteLine($"Resultado: {numero1} - {numero2} = {resultado}");
+                    Resta(numero1, numero2);
                     break;
                 case "3":
-                    resultado = numero1 * numero2;
-                    Console.WriteLine($"Resultado: {numero1} * {numero2} = {resultado}");
+                    Multiplicacion(numero1, numero2);
                     break;
                 case "4":
-                    if (numero2 == 0)
-                    {
-                        Console.WriteLine("Error no se puede dividir entre 0");
-                    }
-                    else
-                    {
-                        resultado = numero1 / numero2;
-                        Console.WriteLine($"Resultado: {numero1} / {numero2} = {resultado}");
-                    }
+                    Division(numero1, numero2);
                     break;
                 default:
                     Console.WriteLine("Opcion de menu no valida");

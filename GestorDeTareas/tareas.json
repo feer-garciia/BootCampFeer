@@ -1,17 +1,30 @@
 [
   {
+    "$type": "laboral",
+    "Proyecto": "DotNet",
     "Id": 1,
-    "Descripcion": "Hola Mundo!",
+    "Descripcion": "Hola Mundo",
     "EstaCompletada": true
   },
   {
+    "$type": "personal",
+    "Categoria": "Prueba",
     "Id": 2,
-    "Descripcion": "Segunda Tarea en un JSON",
+    "Descripcion": "Hola Mundo",
     "EstaCompletada": false
   },
   {
+    "$type": "laboral",
+    "Proyecto": "Hola",
     "Id": 3,
-    "Descripcion": "Como es que funciona!!!",
+    "Descripcion": "Hola Laboral",
+    "EstaCompletada": false
+  },
+  {
+    "$type": "personal",
+    "Categoria": "Personal",
+    "Id": 4,
+    "Descripcion": "Hola Personal",
     "EstaCompletada": false
   }
 ]

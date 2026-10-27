@@ -1,21 +1,25 @@
-using System.Text.Json;
+using System;
+using System.Collections.Generic;
 
-public class GestorTarea
+public class GestorTareas
 {
     private List<Tarea> tareas = new List<Tarea>();
-    public readonly string rutaArchivo = "tareas.json";
+    private readonly IRepositorioTareas repositorio;
 
-    public GestorTarea()
+    // Inyección de Dependencias: Recibimos la abstracción por el constructor
+    public GestorTareas(IRepositorioTareas repositorio)
     {
+        this.repositorio = repositorio;
         CargarTareas();
     }
-    public void AgregarTarea (string descripcion)
+
+    public void AgregarTarea(Tarea tarea)
     {
-        int nuevoId =tareas.Count > 0 ? tareas[tareas.Count - 1].Id + 1 : 1;
-        Tarea nuevaTarea = new Tarea { Id = nuevoId, Descripcion = descripcion };
-        tareas.Add(nuevaTarea);
+        int nuevoId = tareas.Count > 0 ? tareas[tareas.Count - 1].Id + 1 : 1;
+        tarea.Id = nuevoId;
+        tareas.Add(tarea);
         GuardarTareas();
-        Console.WriteLine($"Tarea '{descripcion}' agregada y guardada con éxito");
+        Console.WriteLine("¡Tarea agregada y guardada con éxito!");
     }
 
     public void ListarTareas()
@@ -26,42 +30,36 @@ public class GestorTarea
             return;
         }
 
-        Console.WriteLine("\n---Lista de Tareas---");
+        Console.WriteLine("\n--- Lista de Tareas (Con Interfaces) ---");
         foreach (var tarea in tareas)
         {
-            string estado = tarea.EstaCompletada ? "[X] Completada" : "[ ] Pendiente";
-            Console.WriteLine($"{tarea.Id}. {tarea.Descripcion} - {estado}");
+            string estado = tarea.EstaCompletada ? "[X]" : "[ ]";
+            Console.WriteLine($"{tarea.Id}. {estado} {tarea.ObtenerDetalles()}");
         }
     }
 
-    public void MarcarTareaComoCompletada(int id)
+    public void MarcarTareaCompletada(int id)
     {
         var tarea = tareas.Find(t => t.Id == id);
         if (tarea != null)
         {
             tarea.MarcarComoCompletada();
             GuardarTareas();
-            Console.WriteLine($"Tarea '{id}' marcada como completada y guardada.");
+            Console.WriteLine($"¡Tarea {id} marcada como completada!");
         }
         else
         {
-            Console.WriteLine("No se encontró ninguna tarea con ese ID");
+            Console.WriteLine("No se encontró una tarea con ese ID.");
         }
     }
 
     private void GuardarTareas()
     {
-        var opciones = new JsonSerializerOptions { WriteIndented = true };
-        string jsonString = JsonSerializer.Serialize(tareas, opciones);
-        File.WriteAllText(rutaArchivo, jsonString);
+        repositorio.Guardar(tareas);
     }
 
     private void CargarTareas()
     {
-        if (File.Exists(rutaArchivo))
-        {
-            string jsonString = File.ReadAllText(rutaArchivo);
-            tareas = JsonSerializer.Deserialize<List<Tarea>>(jsonString) ?? new List<Tarea>();
-        }
+        tareas = repositorio.Cargar();
     }
 }

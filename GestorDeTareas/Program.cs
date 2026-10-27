@@ -1,55 +1,79 @@
-﻿class Program
+﻿using System;
+
+class Program
 {
     static void Main(string[] args)
     {
-        GestorTarea gestor = new GestorTarea();
-        string? opcion ="";
+        // 1. Instanciamos la implementación concreta de la persistencia
+        IRepositorioTareas repositorio = new JsonRepositorioTareas();
+
+        // 2. Inyectamos la dependencia en el gestor
+        GestorTareas gestor = new GestorTareas(repositorio);
+        
+        string? opcion = "";
+
         while (opcion != "4")
         {
-            Console.WriteLine("\n---Gestor de Tareas---");
-            Console.WriteLine("1. Agregar Tarea");
-            Console.WriteLine("2. Listar Tareas");
-            Console.WriteLine("3. Marcar Tarea como Completada");
+            Console.WriteLine("\n=== Gestor de Tareas (Arquitectura SOLID) ===");
+            Console.WriteLine("1. Agregar tarea");
+            Console.WriteLine("2. Listar tareas");
+            Console.WriteLine("3. Marcar tarea como completada");
             Console.WriteLine("4. Salir");
-            Console.Write("Seleccione una opción: ");
+            Console.Write("Elige una opción: ");
+
             opcion = Console.ReadLine();
 
             switch (opcion)
             {
                 case "1":
-                    Console.Write("Ingrese la descripción de la tarea: ");
-                    string descripcion = Console.ReadLine() ?? "";
-                    if(!string.IsNullOrWhiteSpace(descripcion))
+                    Console.WriteLine("\n1. Laboral\n2. Personal");
+                    Console.Write("Tipo de tarea: ");
+                    string? tipo = Console.ReadLine();
+                    if (tipo == "1")
                     {
-                        gestor.AgregarTarea(descripcion);
+                        Console.Write("Descripción: ");
+                        string? desc = Console.ReadLine();
+                        Console.Write("Proyecto: ");
+                        string? proj = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(desc) && !string.IsNullOrWhiteSpace(proj))
+                        {
+                            gestor.AgregarTarea(new TareaLaboral { Descripcion = desc, Proyecto = proj });
+                        }
                     }
-                    else
+                    else if (tipo == "2")
                     {
-                        Console.WriteLine("La descripción de la tarea no puede estar vacía.");
+                        Console.Write("Descripción: ");
+                        string? desc = Console.ReadLine();
+                        Console.Write("Categoría: ");
+                        string? cat = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(desc) && !string.IsNullOrWhiteSpace(cat))
+                        {
+                            gestor.AgregarTarea(new TareaPersonal { Descripcion = desc, Categoria = cat });
+                        }
+                    }
+                    else if (tipo != null)
+                    {
+                        Console.WriteLine("Tipo de tarea no válido.");
                     }
                     break;
+
                 case "2":
                     gestor.ListarTareas();
                     break;
+
                 case "3":
-                    Console.Write("Ingrese el ID de la tarea a marcar como completada: ");
+                    gestor.ListarTareas();
+                    Console.Write("Ingresa el ID a completar: ");
                     if (int.TryParse(Console.ReadLine(), out int id))
                     {
-                        gestor.MarcarTareaComoCompletada(id);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error: Por favor, ingrese un número válido para el ID de la tarea.");
+                        gestor.MarcarTareaCompletada(id);
                     }
                     break;
+
                 case "4":
-                    Console.WriteLine("Saliendo del programa...");
-                    break;
-                default:
-                    Console.WriteLine("Opción inválida. Por favor, seleccione una opción válida.");
+                    Console.WriteLine("¡Hasta luego!");
                     break;
             }
+        }
     }
 }
-}
-

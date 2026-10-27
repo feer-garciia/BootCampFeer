@@ -1,14 +1,21 @@
+using System.Text.Json;
 
-using System.Collections.Generic;
 public class GestorTarea
 {
     private List<Tarea> tareas = new List<Tarea>();
+    public readonly string rutaArchivo = "tareas.json";
+
+    public GestorTarea()
+    {
+        CargarTareas();
+    }
     public void AgregarTarea (string descripcion)
     {
-        int nuevoId =tareas.Count +1;
+        int nuevoId =tareas.Count > 0 ? tareas[tareas.Count - 1].Id + 1 : 1;
         Tarea nuevaTarea = new Tarea { Id = nuevoId, Descripcion = descripcion };
         tareas.Add(nuevaTarea);
-        Console.WriteLine($"Tarea '{descripcion}' agregada con exito");
+        GuardarTareas();
+        Console.WriteLine($"Tarea '{descripcion}' agregada y guardada con éxito");
     }
 
     public void ListarTareas()
@@ -33,11 +40,28 @@ public class GestorTarea
         if (tarea != null)
         {
             tarea.MarcarComoCompletada();
-            Console.WriteLine($"Tarea '{id}' marcada como completada.");
+            GuardarTareas();
+            Console.WriteLine($"Tarea '{id}' marcada como completada y guardada.");
         }
         else
         {
-            Console.WriteLine($"No se encontró ninguna tarea con el ID {id}.");
+            Console.WriteLine("No se encontró ninguna tarea con ese ID");
+        }
+    }
+
+    private void GuardarTareas()
+    {
+        var opciones = new JsonSerializerOptions { WriteIndented = true };
+        string jsonString = JsonSerializer.Serialize(tareas, opciones);
+        File.WriteAllText(rutaArchivo, jsonString);
+    }
+
+    private void CargarTareas()
+    {
+        if (File.Exists(rutaArchivo))
+        {
+            string jsonString = File.ReadAllText(rutaArchivo);
+            tareas = JsonSerializer.Deserialize<List<Tarea>>(jsonString) ?? new List<Tarea>();
         }
     }
 }
